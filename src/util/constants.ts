@@ -6,7 +6,7 @@ export const DASHBOARD_PATH = '/';
 
 const config: ConfigProps = {
     fontFamily: `'Inter', sans-serif`,
-    themeMode: 'light' // light, dark
+    themeMode: 'dark' // light, dark
 };
 
 export default config;
