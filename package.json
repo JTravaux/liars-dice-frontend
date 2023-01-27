@@ -2,23 +2,23 @@
   "name": "liars-dice-frontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "yarn": "1.22.19",
+    "npm": "please use yarn"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.11.6",
     "@stomp/stompjs": "^6.1.2",
-    "@tabler/icons": "^2.0.0",
     "notistack": "^2.0.8",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-redux": "^8.0.5",
     "react-router-dom": "^6.7.0",
     "react-scripts": "5.0.1",
     "sass": "^1.57.1",
     "sockjs-client": "^1.6.1",
-    "typescript": "^4.9.4",
-    "web-vitals": "^2.1.4"
+    "typescript": "^4.9.4"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
