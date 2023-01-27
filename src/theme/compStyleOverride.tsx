@@ -8,7 +8,7 @@ export default function componentStyleOverrides(theme: Theme, borderRadius: numb
             styleOverrides: {
                 root: {
                     fontWeight: 500,
-                    borderRadius: '4px'
+                    borderRadius: `${borderRadius}px`
                 }
             }
         },

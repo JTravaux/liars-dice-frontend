@@ -20,7 +20,7 @@ export default function ThemeCustomization({ children }: { children: ReactNode }
     const { fontFamily, themeMode } = useConfig();
     const theme: Theme = useMemo<Theme>(() => Palette(themeMode), [themeMode]);
 
-    const themeTypography: TypographyOptions = useMemo<TypographyOptions>(() => Typography(theme, BORDER_RADIUS, fontFamily), [theme, fontFamily]);
+    const themeTypography: TypographyOptions = useMemo<TypographyOptions>(() => Typography(theme, fontFamily), [theme, fontFamily]);
     const themeCustomShadows: CustomShadowProps = useMemo<CustomShadowProps>(() => customShadows(themeMode, theme), [themeMode, theme]);
 
     const themeOptions: ThemeOptions = useMemo(

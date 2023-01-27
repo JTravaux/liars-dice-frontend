@@ -18,11 +18,11 @@ const Palette = (mode: PaletteMode) => {
                 800: mode === 'dark' ? theme.darkPrimary800 : theme.primary800
             },
             secondary: {
-                light: mode === 'dark' ? theme.darkSecondaryLight : theme.secondaryLight,
-                main: mode === 'dark' ? theme.darkSecondaryMain : theme.secondaryMain,
-                dark: mode === 'dark' ? theme.darkSecondaryDark : theme.secondaryDark,
-                200: mode === 'dark' ? theme.darkSecondary200 : theme.secondary200,
-                800: mode === 'dark' ? theme.darkSecondary800 : theme.secondary800
+                light: theme.secondaryLight,
+                main: theme.secondaryMain,
+                dark: theme.secondaryDark,
+                200: theme.secondary200,
+                800: theme.secondary800
             },
             error: {
                 light: theme.errorLight,
@@ -50,15 +50,13 @@ const Palette = (mode: PaletteMode) => {
             },
             dark: {
                 light: theme.darkTextPrimary,
-                main: theme.darkLevel1,
-                dark: theme.darkLevel2,
-                800: theme.darkBackground,
-                900: theme.darkPaper
+                main: theme.darkMain,
+                dark: theme.darkPaper
             },
             info: {
-                light: '#03a9f4',
-                main: '#086496',
-                dark: '#01579b'
+                light: theme.infoLight,
+                main: theme.infoMain,
+                dark: theme.infoDark
             },
             text: {
                 primary: mode === 'dark' ? theme.darkTextPrimary : theme.grey700,
@@ -68,7 +66,7 @@ const Palette = (mode: PaletteMode) => {
             },
             divider: mode === 'dark' ? theme.darkTextPrimary : theme.grey200,
             background: {
-                paper: mode === 'dark' ? theme.darkLevel2 : theme.paper,
+                paper: mode === 'dark' ? theme.darkPaper : theme.paper,
                 default: mode === 'dark' ? theme.darkPaper : theme.paper
             }
         }

@@ -43,8 +43,7 @@ export interface CustomTypography {
     secondary800?: string;
     darkPrimary800?: string;
     darkPrimary200?: string;
-    darkLevel2?: string;
-    darkLevel1?: string;
+    darkMain?: string;
     darkPaper?: string;
     darkTextPrimary?: string;
     darkTextSecondary?: string;
@@ -69,10 +68,6 @@ export interface CustomTypography {
     z24?: string;
     primary?: string;
     secondary?: string;
-    orange?: string;
-    orangeLight?: string;
-    orangeMain?: string;
-    orangeDark?: string;
     successLight?: string;
     success200?: string;
     successMain?: string;
@@ -86,4 +81,7 @@ export interface CustomTypography {
     warningLight?: string;
     warningMain?: string;
     warningDark?: string;
+    infoLight?: string;
+    infoMain?: string;
+    infoDark?: string;
 }
