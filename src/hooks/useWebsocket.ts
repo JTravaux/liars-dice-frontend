@@ -1,24 +1,10 @@
 import SockJS from 'sockjs-client';
-import { useEffect, useState } from 'react';
-import { ActivationState, Client, IFrame, Message, StompSubscription } from '@stomp/stompjs';
+import { useEffect, useRef, useState } from 'react';
+import { ActivationState, Client, Message, StompSubscription } from '@stomp/stompjs';
 
 interface IUseWebsocketProps {
-    /** The URL of the websocket endpoint. */
     url: string;
-
-    /** If true, debug logs will be printed to the console. */
     debug?: boolean;
-
-    /** All subscribes must be done is this callback. This is needed because this will be executed after a (re)connect. */
-    onConnect?: (frame: IFrame) => void;
-
-    /**
-     * Will be invoked in case of error encountered at Broker.
-     * Bad login/passcode typically will cause an error.
-     * Complaint brokers will set `message` header with a brief message. Body may contain details.
-     * Compliant brokers will terminate the connection after any error
-     */
-    onStompError?: (frame: IFrame) => void;
 }
 
 interface IWebsocketSubscribeProps {
@@ -32,77 +18,80 @@ interface ISendMessageProps {
     body: string | object;
 }
 
-export const useWebsocket = ({ url, debug, onConnect, onStompError }: IUseWebsocketProps) => {
-    const [client, setClient] = useState<Client>();
+export const useWebsocket = ({ url, debug }: IUseWebsocketProps) => {
     const [userId, setUserId] = useState<string>('');
     const [subscriptions, setSubscriptions] = useState<StompSubscription[]>([]);
     const [connectionState, setConnectionState] = useState<ActivationState>(ActivationState.INACTIVE);
 
-    useEffect(() => {
-        const client = new Client({
+    const client = useRef<Client>(
+        new Client({
+            reconnectDelay: 0, // no reconnect, not sure if this best just yet.
+
             webSocketFactory: () => new SockJS(url),
-            debug: debug
-                ? (str) => {
-                      console.log('debug: ', str);
-                  }
-                : () => {},
-            reconnectDelay: 5000,
-            heartbeatIncoming: 4000,
-            heartbeatOutgoing: 4000
-        });
+            debug: (str) => debug && console.log(str),
+            onChangeState: (state) => setConnectionState(state),
+            onConnect: (frame) => setUserId(frame.headers['user-name']),
+            onWebSocketClose: () => setConnectionState(ActivationState.INACTIVE),
 
-        client.onConnect = (frame) => {
-            setUserId(frame.headers['user-name']);
-            onConnect?.(frame);
-        };
+            onWebSocketError: (err) => console.error('onWebSocketError: ', err),
+            onStompError: (frame) => console.error('onStompError: ', frame.headers.message)
+        })
+    );
 
-        if (onStompError) client.onStompError = onStompError;
-        client.onChangeState = (state) => setConnectionState(state);
-
-        client.activate();
-        setClient(client);
-    }, [url, onConnect, onStompError]);
+    useEffect(() => client.current.activate(), []);
 
     const send = ({ gameId, body }: ISendMessageProps) => {
-        if (!client || !client.connected) return false;
-
-        client.publish({
-            destination: '/game/' + gameId,
-            body: typeof body === 'string' ? body : JSON.stringify(body),
-            headers: { priority: '9' }, // just an example
-            skipContentLengthHeader: true // unsure if needed yet
-        });
+        if (client.current.connected) {
+            client.current.publish({
+                destination: '/game/' + gameId,
+                body: typeof body === 'string' ? body : JSON.stringify(body),
+                headers: { priority: '9' } // just an example
+            });
+        }
     };
 
     const sendPrivateMessage = (body: string | object) => {
-        if (!client || !client.connected) return false;
-
-        client.publish({
-            destination: '/game/private-message',
-            body: typeof body === 'string' ? body : JSON.stringify(body),
-            headers: { priority: '9' }, // just an example
-            skipContentLengthHeader: true // unsure if needed yet
-        });
+        if (client.current.connected) {
+            client.current.publish({
+                destination: '/game/private-message',
+                body: typeof body === 'string' ? body : JSON.stringify(body),
+                headers: { priority: '9' } // just an example
+            });
+        }
     };
 
-    const subscribe = ({ gameId, onMessage, onPrivateMessage }: IWebsocketSubscribeProps): boolean => {
-        if (!client || !client.connected) return false;
+    const connect = () => {
+        if (client.current.connected) return false;
 
-        const gameSubscription = client.subscribe('/game/' + gameId, onMessage);
-        const privateSubscription = client.subscribe('/game/private-message', onPrivateMessage);
+        client.current.activate();
+        return true;
+    };
+
+    const disconnect = () => {
+        if (!client.current.connected) return false;
+
+        subscriptions.forEach((subscription) => subscription.unsubscribe());
+        client.current.deactivate();
+        return true;
+    };
+
+    const subscribe = ({ gameId, onMessage, onPrivateMessage }: IWebsocketSubscribeProps) => {
+        if (!client.current.connected) return false;
+
+        const gameSubscription = client.current.subscribe('/game/' + gameId, onMessage);
+        const privateSubscription = client.current.subscribe('/game/private-message', onPrivateMessage);
 
         setSubscriptions([...subscriptions, gameSubscription, privateSubscription]);
         return true;
     };
 
-    const disconnect = () => {
-        subscriptions.forEach((subscription) => subscription.unsubscribe());
-        client?.deactivate();
-    };
-
     const unsubscribe = (subscriptionId: string) => {
         const subscription = subscriptions.find((sub) => sub.id === subscriptionId);
-        if (subscription) subscription.unsubscribe();
+        if (!subscription) return false;
+
+        subscription.unsubscribe();
+        setSubscriptions(subscriptions.filter((sub) => sub.id !== subscriptionId));
+        return true;
     };
 
     return {
@@ -114,8 +103,10 @@ export const useWebsocket = ({ url, debug, onConnect, onStompError }: IUseWebsoc
         send,
         sendPrivateMessage,
 
-        subscribe,
+        connect,
         disconnect,
+
+        subscribe,
         unsubscribe
     };
 };

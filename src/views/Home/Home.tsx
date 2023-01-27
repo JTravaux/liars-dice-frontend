@@ -3,6 +3,7 @@ import { useSnackbar } from 'notistack';
 import { useState } from 'react';
 import MainCard from '../../components/MainCard';
 import { useWebsocket } from '../../hooks/useWebsocket';
+import { WEBSOCKET_URL } from '../../util/constants';
 
 const ConnectionCardContent = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -19,7 +20,7 @@ const FlexRow = styled('div')(({ theme }) => ({
 
 const Home = () => {
     const { enqueueSnackbar } = useSnackbar();
-    const { send, subscribe, sendPrivateMessage, userId, hasActiveSubscriptions } = useWebsocket({ url: 'http://localhost:8080/ws', debug: true });
+    const { send, subscribe, sendPrivateMessage, userId, hasActiveSubscriptions } = useWebsocket({ url: WEBSOCKET_URL /*, debug: true*/ });
 
     const [message, setMessage] = useState('');
     const [gameCode, setGameCode] = useState('');
