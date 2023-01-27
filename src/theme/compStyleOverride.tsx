@@ -1,10 +1,7 @@
-// project imports
 import { Theme } from '@mui/material/styles';
 
 export default function componentStyleOverrides(theme: Theme, borderRadius: number) {
     const mode = theme.palette.mode;
-    const menuSelectedBack = mode === 'dark' ? theme.palette.secondary.main + 15 : theme.palette.secondary.light;
-    const menuSelected = mode === 'dark' ? theme.palette.secondary.main : theme.palette.secondary.dark;
 
     return {
         MuiButton: {
@@ -78,50 +75,6 @@ export default function componentStyleOverrides(theme: Theme, borderRadius: numb
                 }
             }
         },
-        MuiListItemButton: {
-            styleOverrides: {
-                root: {
-                    color: theme.palette.text.primary,
-                    paddingTop: '10px',
-                    paddingBottom: '10px',
-                    '&.Mui-selected': {
-                        color: menuSelected,
-                        backgroundColor: menuSelectedBack,
-                        '&:hover': {
-                            backgroundColor: menuSelectedBack
-                        },
-                        '& .MuiListItemIcon-root': {
-                            color: menuSelected
-                        }
-                    },
-                    '&.MuiButton-containedPrimary': {
-                        bgColor: theme.palette.mode === 'dark' ? 'red' : theme.palette.primary.light
-                    },
-                    '&:hover': {
-                        backgroundColor: menuSelectedBack,
-                        color: menuSelected,
-                        '& .MuiListItemIcon-root': {
-                            color: menuSelected
-                        }
-                    }
-                }
-            }
-        },
-        MuiListItemIcon: {
-            styleOverrides: {
-                root: {
-                    color: theme.palette.text.primary,
-                    minWidth: '36px'
-                }
-            }
-        },
-        MuiListItemText: {
-            styleOverrides: {
-                primary: {
-                    color: theme.palette.text.dark
-                }
-            }
-        },
         MuiInputBase: {
             styleOverrides: {
                 input: {
@@ -184,24 +137,6 @@ export default function componentStyleOverrides(theme: Theme, borderRadius: numb
                 }
             }
         },
-        MuiAutocomplete: {
-            styleOverrides: {
-                root: {
-                    '& .MuiAutocomplete-tag': {
-                        background: mode === 'dark' ? theme.palette.text.primary + 20 : theme.palette.secondary.light,
-                        borderRadius: 4,
-                        color: theme.palette.text.dark,
-                        '.MuiChip-deleteIcon': {
-                            color: mode === 'dark' ? theme.palette.text.primary + 80 : theme.palette.secondary[200]
-                        }
-                    }
-                },
-                popper: {
-                    borderRadius: `${borderRadius}px`,
-                    boxShadow: '0px 8px 10px -5px rgb(0 0 0 / 20%), 0px 16px 24px 2px rgb(0 0 0 / 14%), 0px 6px 30px 5px rgb(0 0 0 / 12%)'
-                }
-            }
-        },
         MuiDivider: {
             styleOverrides: {
                 root: {
@@ -219,65 +154,6 @@ export default function componentStyleOverrides(theme: Theme, borderRadius: numb
                 }
             }
         },
-        MuiAvatar: {
-            styleOverrides: {
-                root: {
-                    color: mode === 'dark' ? theme.palette.dark.main : theme.palette.primary.dark,
-                    background: mode === 'dark' ? theme.palette.text.primary : theme.palette.primary[200]
-                }
-            }
-        },
-        MuiChip: {
-            styleOverrides: {
-                root: {
-                    '&.MuiChip-deletable .MuiChip-deleteIcon': {
-                        color: 'inherit'
-                    }
-                }
-            }
-        },
-        MuiTimelineContent: {
-            styleOverrides: {
-                root: {
-                    color: theme.palette.text.dark,
-                    fontSize: '16px'
-                }
-            }
-        },
-        MuiTreeItem: {
-            styleOverrides: {
-                label: {
-                    marginTop: 14,
-                    marginBottom: 14
-                }
-            }
-        },
-        MuiTimelineDot: {
-            styleOverrides: {
-                root: {
-                    boxShadow: 'none'
-                }
-            }
-        },
-        MuiInternalDateTimePickerTabs: {
-            styleOverrides: {
-                tabs: {
-                    backgroundColor: mode === 'dark' ? theme.palette.dark[900] : theme.palette.primary.light,
-                    '& .MuiTabs-flexContainer': {
-                        borderColor: mode === 'dark' ? theme.palette.text.primary + 20 : theme.palette.primary[200]
-                    },
-                    '& .MuiTab-root': {
-                        color: mode === 'dark' ? theme.palette.text.secondary : theme.palette.grey[900]
-                    },
-                    '& .MuiTabs-indicator': {
-                        backgroundColor: theme.palette.primary.dark
-                    },
-                    '& .Mui-selected': {
-                        color: theme.palette.primary.dark
-                    }
-                }
-            }
-        },
         MuiTabs: {
             styleOverrides: {
                 flexContainer: {
@@ -290,18 +166,6 @@ export default function componentStyleOverrides(theme: Theme, borderRadius: numb
             styleOverrides: {
                 paper: {
                     padding: '12px 0 12px 0'
-                }
-            }
-        },
-        MuiTableCell: {
-            styleOverrides: {
-                root: {
-                    borderColor: mode === 'dark' ? theme.palette.text.primary + 15 : theme.palette.grey[200],
-                    '&.MuiTableCell-head': {
-                        fontSize: '0.875rem',
-                        color: theme.palette.grey[600],
-                        fontWeight: 500
-                    }
                 }
             }
         },

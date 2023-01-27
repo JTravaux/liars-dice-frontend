@@ -1,14 +1,4 @@
-import { Property } from 'csstype';
-import { Color, PaletteMode } from '@mui/material';
-
-export interface CustomizationProps {
-    fontFamily: Property.FontFamily;
-    borderRadius?: number;
-    navType: PaletteMode;
-    presetColor?: string;
-    rtlLayout?: boolean;
-    outlinedFilled?: boolean;
-}
+import { CustomizationProps } from './config';
 
 export interface CustomShadowProps {
     z1: string;
@@ -19,77 +9,12 @@ export interface CustomShadowProps {
     z24: string;
     primary: string;
     secondary: string;
-    orange: string;
     success: string;
     warning: string;
     error: string;
 }
 
 export interface CustomTypography {
-    customInput?: {
-        marginTop: number;
-        marginBottom: number;
-        '& > label': {
-            top: string;
-            left: number;
-            color?: Color | (Color | undefined)[] | Color[];
-            '&[data-shrink="false"]': {
-                top: string;
-            };
-        };
-        '& > div > input': {
-            padding: string;
-        };
-        '& legend': {
-            display: string;
-        };
-        '& fieldset': {
-            top: number;
-        };
-    };
-    mainContent?: {
-        backgroundColor?: string;
-        width: string;
-        minHeight: string;
-        flexGrow: number;
-        padding: string;
-        marginTop: string;
-        marginRight: string;
-        borderRadius: string;
-    };
-    menuCaption?: {
-        fontSize: string;
-        fontWeight: number;
-        color?: Color | (Color | undefined)[] | Color[];
-        padding: string;
-        textTransform: 'uppercase' | 'lowercase' | 'capitalize' | 'inherit';
-        marginTop: string;
-    };
-    subMenuCaption?: {
-        fontSize: string;
-        fontWeight: number;
-        color: Color | (Color | undefined)[] | Color[];
-        textTransform: 'uppercase' | 'lowercase' | 'capitalize' | 'inherit';
-    };
-    commonAvatar?: {
-        cursor: string;
-        borderRadius: string;
-    };
-    smallAvatar?: {
-        width: string;
-        height: string;
-        fontSize: string;
-    };
-    mediumAvatar?: {
-        width: string;
-        height: string;
-        fontSize: string;
-    };
-    largeAvatar?: {
-        width: string;
-        height: string;
-        fontSize: string;
-    };
     heading?: string;
     textDark?: string;
     grey900?: string;

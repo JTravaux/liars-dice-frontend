@@ -1,9 +1,9 @@
-import { Button, styled, TextField, Typography } from '@mui/material';
-import { useSnackbar } from 'notistack';
 import { useState } from 'react';
-import MainCard from '../../components/MainCard';
-import { useWebsocket } from '../../hooks/useWebsocket';
-import { WEBSOCKET_URL } from '../../util/constants';
+import { useSnackbar } from 'notistack';
+import MainCard from 'components/MainCard';
+import { WEBSOCKET_URL } from 'util/constants';
+import { useWebsocket } from 'hooks/useWebsocket';
+import { Button, styled, TextField, Typography } from '@mui/material';
 
 const ConnectionCardContent = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -19,7 +19,7 @@ const FlexRow = styled('div')(({ theme }) => ({
 }));
 
 const Home = () => {
-    const { enqueueSnackbar } = useSnackbar();
+    const notification = useSnackbar();
     const { send, subscribe, sendPrivateMessage, userId, hasActiveSubscriptions } = useWebsocket({ url: WEBSOCKET_URL /*, debug: true*/ });
 
     const [message, setMessage] = useState('');
@@ -37,9 +37,9 @@ const Home = () => {
         });
 
         if (result) {
-            enqueueSnackbar('Successfully connected to ' + gameCode, { variant: 'success' });
+            notification.enqueueSnackbar('Successfully connected to ' + gameCode, { variant: 'success' });
         } else {
-            enqueueSnackbar('Failed to connect to ' + gameCode, { variant: 'error' });
+            notification.enqueueSnackbar('Failed to connect to ' + gameCode, { variant: 'error' });
         }
     };
 

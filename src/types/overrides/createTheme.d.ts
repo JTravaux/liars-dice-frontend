@@ -1,6 +1,6 @@
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import * as createTheme from '@mui/material/styles';
-import { customShadows } from 'themes/shadows';
+import { customShadows } from '../../theme/shadows';
 
 declare module '@mui/material/styles' {
     export interface ThemeOptions {

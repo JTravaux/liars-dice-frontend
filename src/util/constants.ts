@@ -1,8 +1,7 @@
-import { ConfigProps } from '../types/config';
+import { ConfigProps } from 'types/config';
 
-export const borderRadius = 8;
 export const BASE_PATH = '';
-export const DASHBOARD_PATH = '/';
+export const BORDER_RADIUS = 8;
 export const WEBSOCKET_URL = 'http://localhost:8080/ws';
 
 const config: ConfigProps = {

@@ -1,7 +1,7 @@
 import { PaletteMode } from '@mui/material';
 import { createTheme } from '@mui/material/styles';
 
-import theme from '../assets/scss/_theme.module.scss';
+import theme from 'assets/scss/_theme.module.scss';
 
 const Palette = (mode: PaletteMode) => {
     return createTheme({
@@ -28,11 +28,6 @@ const Palette = (mode: PaletteMode) => {
                 light: theme.errorLight,
                 main: theme.errorMain,
                 dark: theme.errorDark
-            },
-            orange: {
-                light: theme.orangeLight,
-                main: theme.orangeMain,
-                dark: theme.orangeDark
             },
             warning: {
                 light: theme.warningLight,

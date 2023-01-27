@@ -2,10 +2,10 @@ import './index.css';
 import App from './App';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BASE_PATH } from 'util/constants';
 import { SnackbarProvider } from 'notistack';
-import { BASE_PATH } from './util/constants';
 import { BrowserRouter } from 'react-router-dom';
-import { ConfigProvider } from './context/ConfigContext';
+import { ConfigProvider } from 'context/ConfigContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 

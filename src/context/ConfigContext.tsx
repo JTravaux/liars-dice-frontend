@@ -1,12 +1,12 @@
 import { createContext, ReactNode } from 'react';
 
 // project import
-import defaultConfig from '../util/constants';
+import defaultConfig from 'util/constants';
+import useLocalStorage from 'hooks/useLocalStorage';
 
 // types
 import { PaletteMode } from '@mui/material';
-import { CustomizationProps } from '../types/config';
-import useLocalStorage from '../hooks/useLocalStorage';
+import { CustomizationProps } from 'types/config';
 
 // initial state
 const initialState: CustomizationProps = {
